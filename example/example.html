@@ -7,7 +7,7 @@
     <style>
 
       #map {
-        height: 500px;  
+        height: 90vh;  
         width: 100%;  
         position: relative;  
       }
@@ -57,10 +57,21 @@
       }
 
       button {
-          background-color: red;
-          width:  200px;
-          height: 50px;
+          background-color: #999;
+          width:  180px;
+          height: 40px;
           z-index: 2000;
+          color: #fff;
+          cursor: pointer;
+          margin: 10px;
+          border: none;
+      }
+
+      .buttons {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1020px;
       }
 
     </style>
@@ -73,15 +84,16 @@
     <!-- required map div -->
     <div id="map"></div>
 
+<div class="buttons">
     <button onclick="cartisanMap.clearMarkers()">clear markers</button>
     <button onclick="cartisanMap.renderMarkers(allMarkers)">render all markers</button>
     <button onclick="cartisanMap.renderMarkers(exampleMarkers)">render example markers</button>
     <button onclick="cartisanMap.openPopup('1')">open Marker 1</button>
     <button onclick="cartisanMap.openPopup('3')">open Marker 3</button>
-
+</div>
 
     <!-- load the deps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEY"> // your api key here
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXyl73GCR9UGBHN11MzABQZ78NxlVwwuA"> // your api key here
     </script>
 
     <script src="../src/markerclusterer.js">

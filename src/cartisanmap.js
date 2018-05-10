@@ -101,16 +101,15 @@ function CartisanMap(options) {
     },
     fullscreenControl: false,
     streetViewControl: false,
-    mapTypeControl: false
-
+    mapTypeControl:false
   });
 
   /* Associate the styled map with the MapTypeId and set it to display. */
   this.map.mapTypes.set('styled_map', styledMapType);
   this.map.setMapTypeId('styled_map');
-
+  
   this.options = options;
-  this.infowindow = null;
+  this.openMarker = null;
   this.markers = {};
 }
 
