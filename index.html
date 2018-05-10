@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Cartisan Map Example</title>
+    <style>
+
+      #map {
+        height: 90vh;  
+        width: 100%;  
+        position: relative;  
+      }
+
+      /* example pop-up style */
+      .popup 
+      {
+          line-height: 2;
+          color: #555;
+          padding: 0 5px;
+      }
+
+      h2.popup-project-title 
+      {
+          text-align: center;
+          margin-bottom: 4px;
+      }
+
+      .popup-info-col 
+      {
+          width:  100%;
+          max-width: 25px;
+          display: inline-block;
+      }
+
+      .popup-info-enddate
+      {
+          width: 25px;
+          display: inline-block;
+          margin-left: 25px;
+      }
+
+      button.view-project-button
+      {
+          border: 1px solid #ccc;
+          padding: 5px 10px;
+          cursor: pointer;
+          text-align: center;
+          display: block;
+          margin: 0 auto;
+          background-color: transparent;
+          border-radius: 3px;
+          margin-top: 10px;
+          color: #555;
+          width: auto;
+          height: auto;
+      }
+
+      button {
+          background-color: #999;
+          width:  180px;
+          height: 40px;
+          z-index: 2000;
+          color: #fff;
+          cursor: pointer;
+          margin: 10px;
+          border: none;
+      }
+
+      .buttons {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1020px;
+      }
+
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+  </head>
+  <body>
+
+    <!-- required map div -->
+    <div id="map"></div>
+
+<div class="buttons">
+    <button onclick="cartisanMap.clearMarkers()">clear markers</button>
+    <button onclick="cartisanMap.renderMarkers(allMarkers)">render all markers</button>
+    <button onclick="cartisanMap.renderMarkers(exampleMarkers)">render example markers</button>
+    <button onclick="cartisanMap.openPopup('1')">open Marker 1</button>
+    <button onclick="cartisanMap.openPopup('3')">open Marker 3</button>
+</div>
+
+    <!-- load the deps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXyl73GCR9UGBHN11MzABQZ78NxlVwwuA"> // your api key here
+    </script>
+
+    <script src="../src/markerclusterer.js">
+    </script>
+
+    <script src="../src/cartisanmap.js">
+    </script>
+
+    <script>
+
+// example marker objects
+var exampleMarkers = [{
+  "markerID":"1", // his id is used to zoom in on marker with openPopup(markerID)
+  "iconUrl":"marker.png", // absolute url or relative to document
+  "iconOpenUrl":"marker-open.png",
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+{
+  "markerID":"2",
+  "iconUrl":"marker.png","iconOpenUrl":"marker-open.png","popupHTML":"<div class='popup'><h2 class='popup-project-title'>Proactive bi-directional circuit</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>n/a<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/8/2016<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>8/17/2027<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.3159495,44.43132324]},
+{"markerID":"3","iconUrl":"marker.png","iconOpenUrl":"marker-open.png","popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]}
+];
+
+var cartisanMapOptions = {
+  mapID : "map",        // the html id of map div
+  infoWindowWidth: 200, // width of the pop-ups in px (int)
+  clusterIcons: [
+    {
+      url:"cluster1.png", // smallest icon, absolute url, or relative to document (string)
+      size: 40            // width = height, in pixels (int)
+    },{
+      url:"cluster2.png",
+      size: 50
+    },{
+      url:"cluster3.png",
+      size: 65
+    },{
+      url:"cluster4.png", // largest icon
+      size: 80
+    }
+  ]
+};
+
+var cartisanMap = new CartisanMap(cartisanMapOptions);
+
+    </script>
+
+    <!-- all markers -->
+    <script src="example_random_markers.js">
+    </script>
+
+  </body>
+</html>
