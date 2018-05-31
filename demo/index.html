@@ -104,35 +104,101 @@
 
     <script>
 
+  var icon = {
+    path: 'M -2,0 0,-2 2,0 0,2 z',
+    strokeColor: '#F00',
+    fillColor: '#F00',
+    fillOpacity: 1,
+    scale: 5
+
+  };
+
+  var icon2 = {
+    path: 'M -1,0 A 1,1 0 0 0 -3,0 1,1 0 0 0 -1,0M 1,0 A 1,1 0 0 0 3,0 1,1 0 0 0 1,0M -3,3 Q 0,5 3,3',
+    strokeColor: '#00F',
+    rotation: 45,
+    scale: 5
+  };
+
+
 // example marker objects
 var exampleMarkers = [{
   "markerID":"1", // his id is used to zoom in on marker with openPopup(markerID)
-  "iconUrl":"marker.png", // absolute url or relative to document
-  "iconOpenUrl":"marker-open.png",
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
   "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
   "coordinates": [40.04130429,45.62966304]}, // lat, lng
 {
   "markerID":"2",
-  "iconUrl":"marker.png","iconOpenUrl":"marker-open.png","popupHTML":"<div class='popup'><h2 class='popup-project-title'>Proactive bi-directional circuit</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>n/a<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/8/2016<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>8/17/2027<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.3159495,44.43132324]},
-{"markerID":"3","iconUrl":"marker.png","iconOpenUrl":"marker-open.png","popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]}
+  "icon":icon,"iconOpen":icon2,"popupHTML":"<div class='popup'><h2 class='popup-project-title'>Proactive bi-directional circuit</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>n/a<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/8/2016<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>8/17/2027<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.3159495,44.43132324]},
+{"markerID":"3","icon":icon,"iconOpen":icon2,"popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]},
+{"markerID":"4","icon":icon,"iconOpen":icon2,"popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]},
+{"markerID":"5","icon":icon,"iconOpen":icon2,"popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]},
+{"markerID":"6","icon":icon,"iconOpen":icon2,"popupHTML":"<div class='popup'><h2 class='popup-project-title'>Cloned homogeneous matrix</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Electric Utilities: Central<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>1/18/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>10/23/2034<br /><button class='view-project-button'>View project</button></div>","coordinates": [40.42335041,44.70061002]},
+{
+  "markerID":"7", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+  {
+  "markerID":"8", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+  {
+  "markerID":"9", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+  {
+  "markerID":"10", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+  {
+  "markerID":"11", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}, // lat, lng
+  {
+  "markerID":"12", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]},
+    {
+  "markerID":"13", // his id is used to zoom in on marker with openPopup(markerID)
+  "icon":icon, // absolute url or relative to document
+  "iconOpen":icon2,
+  "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Down-sized coherent open system</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>Telecommunications Equipment<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/26/2010<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>1/3/2035<br /><button class='view-project-button'>View project</button></div>",
+  "coordinates": [40.04130429,45.62966304]}
 ];
 
 var cartisanMapOptions = {
   mapID : "map",        // the html id of map div
-  infoWindowWidth: 200, // width of the pop-ups in px (int)
-  clusterIcons: [
+  infoWindowWidth: 500, // width of the pop-ups in px (int)
+  clusterIcons: [ // refer to https://googlemaps.github.io/js-marker-clusterer/docs/reference.html for supported styles
     {
       url:"cluster1.png", // smallest icon, absolute url, or relative to document (string)
-      size: 40            // width = height, in pixels (int)
+      width: 40,          
+      height: 40,
     },{
       url:"cluster2.png",
-      size: 50
+      width: 50,          // width = height, in pixels (int)
+      height: 50,
     },{
       url:"cluster3.png",
-      size: 65
+      width: 65,
+      height: 65
     },{
       url:"cluster4.png", // largest icon
-      size: 80
+      width: 80,
+      height: 80
     }
   ]
 };
