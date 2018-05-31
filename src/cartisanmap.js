@@ -126,7 +126,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
 
       var markerInfo = data[i]; // have to be variable for access in sub-function
 
-      // convert the coordinates too google maps latlng object
+      // convert the coordinates to google maps latlng object
       var coords = data[i].coordinates;
       var latLng = new google.maps.LatLng(coords[0],coords[1]);
 
@@ -135,7 +135,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
       // create the marker
       var marker = new google.maps.Marker({
         position: latLng,
-        icon:data[i].iconUrl,
+        icon:data[i].icon,
       });
 
       // create the popup (aka callout)
@@ -148,25 +148,84 @@ CartisanMap.prototype.renderMarkers = function(data) {
 
       // listen to closeclick to change icon
       marker.infowindow.addListener('closeclick',function(){
-        this.marker.setIcon(markerInfo.iconUrl);
+        this.marker.setIcon(markerInfo.icon);
       });
 
       marker.cartisanMap = this;
 
-      marker.open = function() {
+      marker.open = function(openPopup) {
+
+      	openPopup = (typeof openPopup !== 'undefined') ?  openPopup : false;
 
         // close other popups
         if (cartisanMap.openMarker) {
           cartisanMap.openMarker.infowindow.close();
-          cartisanMap.openMarker.setIcon(markerInfo.iconUrl);
+          cartisanMap.openMarker.setIcon(markerInfo.icon);
         }
 
-        //map.setCenter(marker.getPosition());
         cartisanMap.openMarker = this;
+
+        // zoom in to max, if previously detected as overlapping
+        if(this.overlapping &&   cartisanMap.map.getZoom() != cartisanMap.map.maxZoom){
+        	cartisanMap.map.setZoom(cartisanMap.map.maxZoom);
+        	cartisanMap.map.panTo(this.getPosition());
+        }
+
+        // handle overlapping markers
+        var detectedOverlap = false;
+
+        // overlapping markers can only occure when no clustering
+        if(cartisanMap.map.getZoom() > cartisanMap.markerCluster.getMaxZoom()){
+        
+	        var overlapCounter = 1;
+	        var shiftDistanceLng = 0.0005;
+	        var shiftDistanceLat = 0.0005;
+	        var rowCounter = 0;
+	        
+	        // loop through all markers, if overlapping move by offset
+	        for (var key in cartisanMap.markers) {
+				    if (cartisanMap.markers.hasOwnProperty(key) && cartisanMap.markers[key] != this) {
+
+		        	var otherMarkerPos = cartisanMap.markers[key].getPosition();
+		        	var thisMarkerPos = this.getPosition();
+
+		        	// if overlapping
+	            if (otherMarkerPos.equals(thisMarkerPos)) {
+
+	            	// zoom to max
+	            	cartisanMap.map.setZoom(cartisanMap.map.maxZoom);
+
+	            	// add overlapping atribute to marker
+	            	cartisanMap.markers[key].overlapping = true;
+	            	this.overlapping = true;
+
+	            	// change position of the other marker
+
+								var lngMult = 1;				
+								if(overlapCounter%2==1){
+									lngMult = -1*Math.ceil(overlapCounter/2);
+								}else{
+									lngMult = overlapCounter/2;
+								}
+
+								var latMult = 0;//Math.floor((overlapCounter)/5);
+
+								cartisanMap.markers[key].setPosition({lat: otherMarkerPos.lat() + latMult * shiftDistanceLat, lng: otherMarkerPos.lng()+lngMult*shiftDistanceLng});
+	            	detectedOverlap = true;
+	            	overlapCounter++;
+					    }
+						}
+					}
+				}
+
+				// do not open popup if overlap is detected
+				if(detectedOverlap && !openPopup)
+					return;
+
         cartisanMap.openMarker.infowindow.open(cartisanMap.map, this);
 
         // change the icon
-        this.setIcon(markerInfo.iconOpenUrl);
+        this.setIcon(markerInfo.iconOpen);
       }
 
       marker.addListener('click', marker.open);
@@ -183,24 +242,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
 
     // clusterer options
     mcOptions = {
-      styles: [
-        {
-          url: this.options.clusterIcons[0].url,
-          height: this.options.clusterIcons[0].size,
-          width: this.options.clusterIcons[0].size
-        },{
-          url: this.options.clusterIcons[1].url,
-          height: this.options.clusterIcons[1].size,
-          width: this.options.clusterIcons[1].size
-        },{
-          url: this.options.clusterIcons[2].url,
-          height: this.options.clusterIcons[2].size,
-          width: this.options.clusterIcons[2].size
-        },{
-          url: this.options.clusterIcons[3].url,
-          height: this.options.clusterIcons[3].size,
-          width: this.options.clusterIcons[3].size
-        }],
+      styles: this.options.clusterIcons,
       maxZoom: 13, // disable clustering above 13
       gridSize: 100,
       calculator: function(markers, numStyles){     // custom cluster algorithm as described in site spec
@@ -256,13 +298,11 @@ CartisanMap.prototype.clearMarkers = function() {
 CartisanMap.prototype.openPopup = function(markerID) {
 
   var marker = this.markers[markerID];
-  //markerCluster.removeMarker(marker);
-  cartisanMap.openMarker = marker;
 
   //var markerClust2 = new MarkerClusterer(map, [marker], {});
   this.map.panTo(marker.getPosition());
 
   // has to be above markerclusterer maxZoom markers are displayed seperately
   this.map.setZoom(14); 
-  marker.open();
+  marker.open(true);
 }
