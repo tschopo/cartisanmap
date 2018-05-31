@@ -104,15 +104,18 @@
 
     <script>
 
+  // png style
   var icon = {
-    path: 'M -2,0 0,-2 2,0 0,2 z',
-    strokeColor: '#F00',
-    fillColor: '#F00',
-    fillOpacity: 1,
-    scale: 5
-
+    url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(20, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32)
   };
 
+  // svg style
   var icon2 = {
     path: 'M -1,0 A 1,1 0 0 0 -3,0 1,1 0 0 0 -1,0M 1,0 A 1,1 0 0 0 3,0 1,1 0 0 0 1,0M -3,3 Q 0,5 3,3',
     strokeColor: '#00F',
