@@ -242,6 +242,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
       // listen to closeclick to change icon
       marker.infowindow.addListener('closeclick', function() {
         this.marker.setIcon(markerInfo.icon);
+        cartisanMap.openMarker = null;
       });
 
       marker.cartisanMap = this;
@@ -262,6 +263,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
         if (cartisanMap.openMarker) {
           cartisanMap.openMarker.infowindow.close();
           cartisanMap.openMarker.setIcon(markerInfo.icon);
+          cartisanMap.openMarker = null;
         }
 
         cartisanMap.openMarker = this;
