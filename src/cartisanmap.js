@@ -195,6 +195,15 @@ function CartisanMap(options) {
   this.options = options;
   this.openMarker = null;
   this.markers = {};
+
+  cartisanMap = this;
+  google.maps.event.addListener(this.map, "click", function(event) {
+    if(cartisanMap.openMarker != null){
+      cartisanMap.openMarker.infowindow.close();
+      cartisanMap.openMarker.setIcon(cartisanMap.openMarker.closedIcon);
+      cartisanMap.openMarker = null;
+    }
+  });
 }
 
 CartisanMap.prototype.renderMarkers = function(data) {
@@ -231,13 +240,21 @@ CartisanMap.prototype.renderMarkers = function(data) {
       marker.infowindow.marker = marker;
 
       // listen to closeclick to change icon
-      marker.infowindow.addListener('closeclick',function(){
+      marker.infowindow.addListener('closeclick', function() {
         this.marker.setIcon(markerInfo.icon);
       });
 
       marker.cartisanMap = this;
+      marker.closedIcon = markerInfo.icon;
 
       marker.open = function(openPopup) {
+
+        if(this == cartisanMap.openMarker){
+          this.infowindow.close();
+          cartisanMap.openMarker = null;
+          this.setIcon(markerInfo.icon);
+          return;
+        }
 
       	openPopup = (typeof openPopup !== 'undefined') ?  openPopup : false;
 
