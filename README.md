@@ -85,8 +85,19 @@ var exampleMarkers = [
 }, 
 {
   "markerID":"2",
-  "icon":"marker.png",
-  "iconOpen":"marker-open.png",
+  "icon":{ // png style
+    url: 'icon.png',
+    size: new google.maps.Size(20, 32),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 32)
+  }, 
+  "iconOpen":{ // svg style
+    path: 'M -2,0 0,-2 2,0 0,2 z',
+    strokeColor: '#F00',
+    fillColor: '#F00',
+    fillOpacity: 1,
+    scale: 5
+  },
   "popupHTML":"<div class='popup'><h2 class='popup-project-title'>Proactive bi-directional circuit</h2><span class='popup-info-col'><i class='fa fa-industry'></i></span>n/a<br /><span class='popup-info-col'><i class='fa fa-clock-o'></i> </span>4/8/2016<span class='popup-info-enddate'><i class='fa fa-flag'></i></span>8/17/2027<br /><button class='view-project-button'>View project</button></div>",
   "coordinates": [40.3159495,44.43132324]
 },
