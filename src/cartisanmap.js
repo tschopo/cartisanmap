@@ -331,6 +331,22 @@ CartisanMap.prototype.renderMarkers = function(data) {
 
       marker.addListener('click', marker.open);
 
+      marker.addListener('mouseover', function() {
+      	if(this != this.cartisanMap.openMarker){
+      		console.log("mouseover");
+      		this.setIcon(markerInfo.iconHover);
+      	}
+      });
+
+      marker.addListener('mouseout', function() {
+
+      	if(this != this.cartisanMap.openMarker){
+      		      	      	console.log("mouseout");
+
+      		this.setIcon(markerInfo.icon);
+      	}
+      });
+
       // save markers in a list, so theay can be accessed from outside
       this.markers[data[i].markerID] = marker;
 
