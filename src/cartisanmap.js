@@ -204,6 +204,23 @@ function CartisanMap(options) {
       cartisanMap.openMarker = null;
     }
   });
+
+
+  // close infowindow when in cluster
+  google.maps.event.addListener(this.map, "zoom_changed", function(event) {
+    
+    // if a infowindow is open
+    if(cartisanMap.openMarker != null){
+
+      // if the open marker is not displayed on map -> close the indowindow
+      //if(cartisanMap.openMarker.getMap()== null){
+
+          cartisanMap.openMarker.infowindow.close();
+          cartisanMap.openMarker.setIcon(cartisanMap.openMarker.closedIcon);
+          cartisanMap.openMarker = null;
+      //}
+    }
+  });
 }
 
 CartisanMap.prototype.renderMarkers = function(data) {
@@ -250,6 +267,7 @@ CartisanMap.prototype.renderMarkers = function(data) {
 
       marker.open = function(openPopup) {
 
+        // close popup if already open
         if(this == cartisanMap.openMarker){
           this.infowindow.close();
           cartisanMap.openMarker = null;
@@ -341,13 +359,19 @@ CartisanMap.prototype.renderMarkers = function(data) {
       });
 
       marker.addListener('mouseout', function() {
-
       	if(this != this.cartisanMap.openMarker){
-      		      	      	console.log("mouseout");
-
       		this.setIcon(markerInfo.icon);
       	}
       });
+
+      /*
+      google.maps.event.addListener(marker,'map_changed',function(){
+        if(!this.getMap() && this == this.cartisanMap.openMarker){
+          this.infowindow.close();
+          console.log("close");        
+        }
+      });
+      */
 
       // save markers in a list, so theay can be accessed from outside
       this.markers[data[i].markerID] = marker;
@@ -399,6 +423,8 @@ CartisanMap.prototype.renderMarkers = function(data) {
       mc.redraw();
     },500);
   }
+
+
 }
 
 CartisanMap.prototype.clearMarkers = function() {
